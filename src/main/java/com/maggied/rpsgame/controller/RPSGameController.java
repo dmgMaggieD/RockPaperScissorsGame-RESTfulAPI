@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maggied.rpsgame.GameManager;
@@ -39,16 +38,14 @@ public class RPSGameController {
 		return gameManager.getGameByGameId(playerId, gameId).combat(playerShape, RPSGame.generateComputerShape());
 	}
 
-	// Gets the game by a given game ID and player ID and returns json data of the
-	// game
+	// Gets the game by a given game ID and player ID and returns json data of the game
 	@RequestMapping(path = "/rpsgame/{playerId}/{gameId}", method = RequestMethod.GET)
 	public RPSGame getGameByGameId(@PathVariable("playerId") String playerId, @PathVariable("gameId") long gameId) {
 		GameManager gameManager = GameManager.getInstance();
 		return gameManager.getGameByGameId(playerId, gameId);
 	}
 
-	// Resets a Game by the given game ID and player ID and returns json data of the
-	// game
+	// Resets a Game by the given game ID and player ID and returns json data of the game
 	@RequestMapping(path = "/rpsgame/{playerId}/{gameId}", method = RequestMethod.PUT)
 	public RPSGame reset(@PathVariable("playerId") String playerId, @PathVariable("gameId") long gameId) {
 		GameManager gameManager = GameManager.getInstance();
