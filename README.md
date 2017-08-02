@@ -155,7 +155,7 @@
     $.ajax({
       url: "/rpsgame/player01/0",
       dataType: "json",
-      data: '{"playerShape" : 1}',
+      data: '{"shapeValue" : 1}',
       type : "POST",
       success : function(r) {
         console.log(r);
@@ -299,28 +299,28 @@
 ** Language **
 ----
 
-	* **Java**
+	Java
 	
 ** Framework **
 ----
 
-	* **Spring**
+	Spring
 
 ** IDE **
 ----
 
-	* **[Spring Tool Suite](https://spring.io/tools/sts/all)**
+	[Spring Tool Suite](https://spring.io/tools/sts/all)
 	
-	* **[JDK8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)**
+	[JDK8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 	
 ** Testing **
 ----
 
-	* **JUnit, WebMvcTest**
+	JUnit, WebMvcTest
 	
-	* **[REST Client](https://github.com/wiztools/rest-client/releases)**
+	[REST Client](https://github.com/wiztools/rest-client/releases)
 
 ** Building **
 ----
 
-	* **Maven**
+	Maven
