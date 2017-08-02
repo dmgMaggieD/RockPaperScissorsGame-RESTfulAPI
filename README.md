@@ -1,6 +1,6 @@
 ## API Descriptions
 
-** New Game**
+**New Game**
 ----
   Creates a RPS game by a given playerId and returns json data of the game.
 
@@ -40,7 +40,7 @@
     });
   ```
 
-** Get Game List by Player ID**
+**Get Game List by Player ID**
 ----
   Get a list of games owned by given player.
 
@@ -82,7 +82,7 @@
     });
   ```
   
-** Combat**
+**Combat**
 ----
   Plays a round of RPS game and return the json data of the game.
 
@@ -110,13 +110,13 @@
   * **Code:** 200 <br />
     **Content:** `{"currentRound":1,"gameId":0,"playerId":"player01","scoreBoard":[[0,1,1],[0,0,0],[0,0,0]],"status":"Playing"}`
     
-    * **Code:** 200 <br />
+  * **Code:** 200 <br />
     **Content:** `{"currentRound":3,"gameId":0,"playerId":"player01","scoreBoard":[[0,1,1],[1,1,0],[0,1,1]],"status":"Player Win"}`
     
-    * **Code:** 200 <br />
+  * **Code:** 200 <br />
     **Content:** `{"currentRound":3,"gameId":0,"playerId":"player01","scoreBoard":[[-1,1,2],[1,1,0],[-1,1,2]],"status":"Computer Win"}`
 	
-	* **Code:** 200 <br />
+  * **Code:** 200 <br />
     **Content:** `{"currentRound":3,"gameId":0,"playerId":"player01","scoreBoard":[[-1,1,2],[1,1,0],[0,1,1]],"status":"Tie"}`
 	
 
@@ -124,6 +124,7 @@
 
   * **Code:** 500  INTERNAL SERVER ERROR? <br />
     **Content:** `{ error : "Game '0' has already finished!" }`
+  
   OR
 
   * **Code:** 400  BAD REQUEST <br />
@@ -154,7 +155,7 @@
     });
   ```
     
-** Get a Game**
+**Get a Game**
 ----
   Get the game by a given game ID and player ID and returns json data of the game. 
 
@@ -182,12 +183,13 @@
   * **Code:** 200 <br />
     **Content:** `{"currentRound":6,"gameId":0,"playerId":"player01","scoreBoard":[[0,1,1],[1,1,0],[0,1,1]],"status":"Player Win"}`
     
-    * **Code:** 200 <br />
+  * **Code:** 200 <br />
     **Content:** `{"currentRound":0,"gameId":2,"playerId":"player01","scoreBoard":[[0,0,0],[0,0,0],[0,0,0]],"status":"Playing"}`
 
 * **Error Response:**
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Game '4' doesn't exist!" }`
+    
   OR
    
   * **Code:** 500  INTERNAL SERVER ERROR <br />
@@ -206,7 +208,7 @@
     });
   ```
   
-** Reset a Game**
+**Reset a Game**
 ----
   Resets a Game by the given game ID and player ID and returns json data of the game. 
 
@@ -237,6 +239,7 @@
 * **Error Response:**
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Game '4' doesn't exist!" }`
+    
   OR
    
   * **Code:** 500  INTERNAL SERVER ERROR <br />
@@ -258,21 +261,52 @@
 ** Notes**
 ----
 * **RPSGame.scoreBoard**
+
 	array: int[3][3]
+	
 	row0: row1: row2: round from 1 - 3
+	
 	coloum0: coloum1: coloum2: -1 player lose,  0 tie, 1 player win for this round
+	
 * **RPSGame.status**
+
+	String
+
 	"Playing", "Player Win", "Computer Win", "Tie";
+	
 * **shapes**
+
+	int
+
 	0: Rock, 1: Paper, 2: Scissors	
 
-## Set Up 
+## Dependencies 
 
+** Language **
+----
+
+	* **Java**
+	
 ** Framework **
 ----
+
+	* **Spring**
 
 ** IDE **
 ----
 
-** Test **
+	* **[Spring Tool Suite](https://spring.io/tools/sts/all)**
+	
+	* **[JDK8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)**
+	
+** Testing **
 ----
+
+	* **JUnit, WebMvcTest**
+	
+	* **[REST Client](https://github.com/wiztools/rest-client/releases)**
+
+** Building **
+----
+
+	* **Maven**
