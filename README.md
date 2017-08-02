@@ -1,5 +1,4 @@
-* API Descriptions *
----------
+## API Descriptions
 
 ** New Game**
 ----
@@ -41,7 +40,7 @@
     });
   ```
 
-  ** Get Game List by Player ID**
+** Get Game List by Player ID**
 ----
   Get a list of games owned by given player.
 
@@ -83,7 +82,7 @@
     });
   ```
   
-   ** Combat **
+** Combat**
 ----
   Plays a round of RPS game and return the json data of the game.
 
@@ -155,7 +154,7 @@
     });
   ```
     
-   ** Get a Game**
+** Get a Game**
 ----
   Get the game by a given game ID and player ID and returns json data of the game. 
 
@@ -207,7 +206,7 @@
     });
   ```
   
-     ** Reset a Game**
+** Reset a Game**
 ----
   Resets a Game by the given game ID and player ID and returns json data of the game. 
 
@@ -256,7 +255,7 @@
     });
   ```
   
-   ** Notes**
+** Notes**
 ----
 * **RPSGame.scoreBoard**
 	array: int[3][3]
@@ -267,13 +266,13 @@
 * **shapes**
 	0: Rock, 1: Paper, 2: Scissors	
 
-* Set Up *
----------
- ** Framework **
+## Set Up 
+
+** Framework **
 ----
 
- ** IDE **
+** IDE **
 ----
 
- ** Test **
+** Test **
 ----
