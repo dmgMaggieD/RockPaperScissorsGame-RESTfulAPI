@@ -1,6 +1,6 @@
 ## API Descriptions
 
-**New Game**
+**API: New Game**
 ----
   Creates a RPS game by a given playerId and returns json data of the game.
 
@@ -40,7 +40,7 @@
     });
   ```
 
-**Get Game List by Player ID**
+**API: Get Game List by Player ID**
 ----
   Get a list of games owned by given player.
 
@@ -82,7 +82,7 @@
     });
   ```
   
-**Combat**
+**API: Combat**
 ----
   Plays a round of RPS game and return the json data of the game.
 
@@ -103,7 +103,9 @@
 
 * **Data Params**
 
-  `playerShape=[int]` 0: Rock; 1: Pape; 2: Scissors
+  `{"shapeValue":[int]}` 
+  
+  	0: Rock; 1: Paper; 2: Scissors
 
 * **Success Response:**
   
@@ -128,7 +130,7 @@
   OR
 
   * **Code:** 400  BAD REQUEST <br />
-    **Content:** `{ error : "Required int parameter 'playerShape' is not present." }`
+    **Content:** `{ error : "Required request body is missing." }`
   
   OR
 
@@ -139,6 +141,12 @@
 
   * **Code:** 500  INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Invalid input!" }`
+    
+  OR
+
+  * **Code:** 500  INTERNAL SERVER ERROR <br />
+    **Content:** `{ error : "Game '7' doesn't exist!" }`
+    
 
     
 * **Sample Call:**
@@ -155,7 +163,7 @@
     });
   ```
     
-**Get a Game**
+**API: Get a Game**
 ----
   Get the game by a given game ID and player ID and returns json data of the game. 
 
@@ -208,7 +216,7 @@
     });
   ```
   
-**Reset a Game**
+**API: Reset a Game**
 ----
   Resets a Game by the given game ID and player ID and returns json data of the game. 
 
@@ -260,6 +268,11 @@
   
 ** Notes**
 ----
+
+* **Combat API**
+
+	Data in request body should be Application/json media type.
+
 * **RPSGame.scoreBoard**
 
 	array: int[3][3]
@@ -274,11 +287,12 @@
 
 	"Playing", "Player Win", "Computer Win", "Tie";
 	
-* **shapes**
+* **Shape Value**
 
 	int
 
 	0: Rock, 1: Paper, 2: Scissors	
+
 
 ## Dependencies 
 

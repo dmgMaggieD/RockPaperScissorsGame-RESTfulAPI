@@ -8,18 +8,16 @@ public class RPSGame implements Game {
 	private String playerId;
 
 	/*
-	 * ScoreBoard: store information of every round. 
-	 * Row: one round of game.
-	 * Column0: result, 1 player lose, 0 Tie, 1 player win. 
-	 * Column1: playerShape. 
+	 * ScoreBoard: store information of every round. Row: one round of game.
+	 * Column0: result, 1 player lose, 0 Tie, 1 player win. Column1: playerShape.
 	 * Column2: computerShape.
 	 */
 	private int[][] scoreBoard;
 	private String status;
-	
-	//Generate computerShape randomly
-	public static int generateComputerShape() {
-		return (int) (Math.random() * Shapes.NUMBER_OF_SHAPES);
+
+	// Generate computerShape randomly
+	public static Shape generateComputerShape() {
+		return new Shape((int) (Math.random() * Shape.NUMBER_OF_SHAPES));
 	}
 
 	public RPSGame(long gameId, String playerId) {
@@ -38,27 +36,27 @@ public class RPSGame implements Game {
 		return this;
 	}
 
-	public RPSGame combat(int playerShape, int computerShape) {
+	public RPSGame combat(Shape playerShape, Shape computerShape) {
 
-		currentRound++;
-		
 		// If Game finished
 		if (!status.equals(Game.PLALYING)) {
 			String errMsg = String.format("Game '%d' has already finished!", gameId);
 			throw new RuntimeException(errMsg);
 		}
-		
+
 		// Compare and update scoreBoard
-		int result = Shapes.compare(playerShape, computerShape);
+		int result = Shape.compare(playerShape, computerShape);
+		
+		currentRound++;
 		scoreBoard[currentRound - 1][0] = result;
-		scoreBoard[currentRound - 1][1] = playerShape;
-		scoreBoard[currentRound - 1][2] = computerShape;
+		scoreBoard[currentRound - 1][1] = playerShape.getShapeValue();
+		scoreBoard[currentRound - 1][2] = computerShape.getShapeValue();
 
 		int scoreSum = 0;
 		for (int i = 0; i < currentRound; i++) {
 			scoreSum += scoreBoard[i][0];
 		}
-		
+
 		// Update game status
 		if (scoreSum == 2) {
 			status = Game.PLAYER_WIN;

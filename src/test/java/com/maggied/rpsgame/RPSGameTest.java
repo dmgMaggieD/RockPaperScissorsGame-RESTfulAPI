@@ -15,8 +15,8 @@ public class RPSGameTest {
 	@Test
 	public void resetTest() {
 		RPSGame game = new RPSGame(1, "playerTest");
-		game.combat(0, 0);
-		game.combat(1, 1);
+		game.combat(new Shape(0), new Shape(0));
+		game.combat(new Shape(1), new Shape(1));
 		assertEquals(2, game.getCurrentRound());
 
 		game.reset();
@@ -38,7 +38,7 @@ public class RPSGameTest {
 		assertArrayEquals(new int[3], game.getScoreBoard()[0]);
 
 		// First round, Paper beats Rock, computer wins the round.
-		game.combat(0, 1);
+		game.combat(new Shape(0), new Shape(1));
 
 		assertEquals(1, game.getCurrentRound());
 		assertEquals(1, game.getGameId());
@@ -48,7 +48,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLALYING, game.getStatus());
 
 		// Second round, Scissors beats Paper, player wins the round.
-		game.combat(2, 1);
+		game.combat(new Shape(2), new Shape(1));
 
 		assertEquals(2, game.getCurrentRound());
 		assertEquals(1, game.getScoreBoard()[1][0]);
@@ -57,7 +57,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLALYING, game.getStatus());
 
 		// Third round, Rock beats Scissors, player wins the game.
-		game.combat(0, 2);
+		game.combat(new Shape(0), new Shape(2));
 
 		assertEquals(3, game.getCurrentRound());
 		assertEquals(1, game.getScoreBoard()[2][0]);
@@ -75,7 +75,7 @@ public class RPSGameTest {
 		assertArrayEquals(new int[3], game.getScoreBoard()[0]);
 
 		// First round, Scissors beats Paper, player wins the round.
-		game.combat(2, 1);
+		game.combat(new Shape(2), new Shape(1));
 
 		assertEquals(1, game.getCurrentRound());
 		assertEquals(1, game.getScoreBoard()[0][0]);
@@ -84,7 +84,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLALYING, game.getStatus());
 
 		// Second round, Rock beats Scissors, player wins the game.
-		game.combat(0, 2);
+		game.combat(new Shape(0), new Shape(2));
 
 		assertEquals(2, game.getCurrentRound());
 		assertEquals(1, game.getScoreBoard()[1][0]);
@@ -93,7 +93,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLAYER_WIN, game.getStatus());
 
 		// Throw exception when try to combat in a finished game.
-		game.combat(0, 2);
+		game.combat(new Shape(0), new Shape(2));
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class RPSGameTest {
 		assertArrayEquals(new int[3], game.getScoreBoard()[0]);
 
 		// First round, Paper beats Rock, computer wins the round.
-		game.combat(0, 1);
+		game.combat(new Shape(0), new Shape(1));
 
 		assertEquals(1, game.getCurrentRound());
 		assertEquals(1, game.getGameId());
@@ -115,7 +115,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLALYING, game.getStatus());
 
 		// Second round, Scissors beats Paper, player wins the round.
-		game.combat(2, 1);
+		game.combat(new Shape(2), new Shape(1));
 
 		assertEquals(2, game.getCurrentRound());
 		assertEquals(1, game.getScoreBoard()[1][0]);
@@ -124,7 +124,7 @@ public class RPSGameTest {
 		assertEquals(RPSGame.PLALYING, game.getStatus());
 
 		// Third round, Rock vs Rock, it's a tied game.
-		game.combat(0, 0);
+		game.combat(new Shape(0), new Shape(0));
 
 		assertEquals(3, game.getCurrentRound());
 		assertEquals(0, game.getScoreBoard()[2][0]);

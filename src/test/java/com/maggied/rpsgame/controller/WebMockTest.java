@@ -1,28 +1,50 @@
 package com.maggied.rpsgame.controller;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.maggied.rpsgame.GameManager;
+import com.maggied.rpsgame.Shape;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RPSGameController.class)
 public class WebMockTest {
 
+	private HttpMessageConverter mappingJackson2HttpMessageConverter;
+
 	@Autowired
 	private MockMvc mockMvc;
+
+	@Autowired
+	void setConverters(HttpMessageConverter<?>[] converters) {
+
+		this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
+				.filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().orElse(null);
+
+		assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
+	}
 
 	@Before()
 	public void setup() {
@@ -44,6 +66,7 @@ public class WebMockTest {
 	public void combatTest() throws Exception {
 		String playerId = "player001";
 		int gameId = 0;
+		String shapeJson = "{\"shapeValue\":2}";
 
 		// Create a new game.
 		this.mockMvc.perform(post("/rpsgame/" + playerId)).andExpect(status().isOk())
@@ -51,7 +74,9 @@ public class WebMockTest {
 				.andExpect(jsonPath("$.currentRound", is(0))).andExpect(jsonPath("$.gameId", is(gameId)));
 
 		// Combat the first round with Scissors.
-		this.mockMvc.perform(post("/rpsgame/" + playerId + "/" + gameId).param("playerShape", "2"))
+		this.mockMvc
+				.perform(post("/rpsgame/" + playerId + "/" + gameId).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.content(shapeJson))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.playerId", is(playerId)))
 				.andExpect(jsonPath("$.scoreBoard[0][1]", is(2))).andExpect(jsonPath("$.currentRound", is(1)));
 	}
@@ -99,6 +124,7 @@ public class WebMockTest {
 	public void resetTest() throws Exception {
 		String playerId = "player001";
 		int gameId = 0;
+		String shapeJson = "{\"shapeValue\":2}";
 
 		// Create a new game.
 		this.mockMvc.perform(post("/rpsgame/" + playerId)).andExpect(status().isOk())
@@ -106,7 +132,9 @@ public class WebMockTest {
 				.andExpect(jsonPath("$.currentRound", is(0))).andExpect(jsonPath("$.gameId", is(gameId)));
 
 		// Combat the first round with Scissors.
-		this.mockMvc.perform(post("/rpsgame/" + playerId + "/" + gameId).param("playerShape", "2"))
+		this.mockMvc
+				.perform(post("/rpsgame/" + playerId + "/" + gameId).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.content(shapeJson))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.playerId", is(playerId)))
 				.andExpect(jsonPath("$.scoreBoard[0][1]", is(2))).andExpect(jsonPath("$.currentRound", is(1)));
 
@@ -115,4 +143,5 @@ public class WebMockTest {
 				.andExpect(jsonPath("$.playerId", is(playerId))).andExpect(jsonPath("$.scoreBoard[0][1]", is(0)))
 				.andExpect(jsonPath("$.currentRound", is(0)));
 	}
+
 }
